@@ -10,13 +10,14 @@ import {
   toggleFavorite,
   updateSong
 } from '../features/musicSlice';
+import { getSongsAPI, addSongAPI, deleteSongAPI, updateSongAPI, toggleFavoriteAPI, getStatisticsAPI } from '../../apis';
 import { Song } from '../../types/data.type';
 import { PayloadAction } from '@reduxjs/toolkit';
 
 function* addSongSaga(action: PayloadAction<Song>) {
   try {
     const newSong = action.payload;
-    const response:AxiosResponse = yield call(() =>
+    const response: AxiosResponse = yield call(() =>
       axios.post('http://localhost:3000/songs', newSong)
     );
     yield put(addSong(response.data.song));
@@ -51,7 +52,7 @@ function* updateSongSaga(action: PayloadAction<{ id: string, newSong: Song }>) {
 
 function* getAllSongsSaga() {
   try {
-    const response:AxiosResponse = yield call(() =>
+    const response: AxiosResponse = yield call(() =>
       axios.get('http://localhost:3000/songs')
     );
     yield put(loadAllSongs(response.data));
@@ -62,7 +63,7 @@ function* getAllSongsSaga() {
 
 function* getStatSaga() {
   try {
-    const response:AxiosResponse = yield call(() =>
+    const response: AxiosResponse = yield call(() =>
       axios.get('http://localhost:3000/songs/stat')
     );
     yield put(loadStatistics(response.data));
@@ -74,8 +75,8 @@ function* getStatSaga() {
 function* toggleFavoriteSaga(action: PayloadAction<string>) {
   try {
     const songId = action.payload;
-    const response: AxiosResponse = yield fork(() =>
-      axios.patch(`http://localhost:3000/songs/${songId}/toggle-favorite`)
+    const response: AxiosResponse = yield fork(async() =>
+     await axios.patch(`http://localhost:3000/songs/${songId}/toggle-favorite`)
     );
     yield put(toggleFavorite(songId));
   } catch (error) {
