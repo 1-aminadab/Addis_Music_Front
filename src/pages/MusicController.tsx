@@ -121,7 +121,7 @@ export const CustomMusicController = () => {
   },[progress])
   return (
     <MusicController isPlaying={currentPlaying !== null}>
-      <audio src={SampleMusic} ref={audioRef} onTimeUpdate={() => setProgress((audioRef.current?.currentTime / audioRef.current?.duration) * 100)} />
+      <audio src={SampleMusic} ref={audioRef} onTimeUpdate={() => setProgress(((audioRef?.current?.currentTime || 0) / (audioRef?.current?.duration || 0)) * 100)} />
       {/* 
        */}
         <div style={{ display: "flex", gap: "10px" }}>
@@ -193,7 +193,7 @@ export const CustomMusicController = () => {
         <TimeBarContainer>
           <ProgressBar value={progress} max={100} onChange={handleChange} />
         </TimeBarContainer>
-        <TimeInfo>-{formatTime(audioRef.current?.duration - (audioRef.current?.currentTime || 0))}</TimeInfo>
+        <TimeInfo>-{formatTime((audioRef.current?.duration || 0) - (audioRef.current?.currentTime || 0))}</TimeInfo>
       </TimeController>
     </MusicController>
   );

@@ -17,6 +17,7 @@ import { useDispatch } from "react-redux";
 import { loadAllSongs, loadStatistics} from "../store/features/musicSlice";
 import { Song } from "../types/data.type";
 import { MusicContainer } from "./ProductList";
+import { GET_ALL_SONGS, GET_STATISTICS } from "../types/redux.type";
 
 const Home = styled.div`
   width: 100vw;
@@ -35,26 +36,12 @@ const Body = styled.div`
 `;
 
 export const CustomHome = () => {
-  const { currentBody,addSong, updateSong, songs,currentSong,songFiltered} = useSelector((store: any) => store.songs);
+  const { currentBody,addSong, updateSong, currentSong,songFiltered} = useSelector((store: any) => store.songs);
   const dispatch = useDispatch()
   useEffect(()=>{
-    const allSongs = getAllSongs()
-    const stats = getStat()
-
-
+    dispatch({type:GET_ALL_SONGS})
+    dispatch({type:GET_STATISTICS})
   },[])
-  const getAllSongs = async()=>{
-    await axios.get('http://localhost:3000/songs')
-    .then((res)=>{
-      dispatch(loadAllSongs(res.data))})
-    .catch((error)=>console.log(error))
-  }
-  const getStat = async()=>{
-    await axios.get('http://localhost:3000/songs/stat')
-    .then((res)=>{
-      dispatch(loadStatistics(res.data))})
-    .catch((error)=>console.log(error))
-  }
 
 
   return (

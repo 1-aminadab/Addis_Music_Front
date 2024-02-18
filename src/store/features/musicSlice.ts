@@ -14,7 +14,8 @@ const initialState: SongsState = {
   currentPlaying: null,
   updateSong: false,
   songStatistics: undefined,
-  dataTobeUpdated: {}
+  dataTobeUpdated: {},
+  searchCars:""
 };
 
 const songsSlice = createSlice({
@@ -51,8 +52,9 @@ const songsSlice = createSlice({
       });
     },
     updateSong(state, action: PayloadAction<Partial<Song>>) {
+      console.log("Updated song",action.payload);     
       const updatedSong = action.payload;
-      state.currentSong = state.songs.map(song => {
+      state.currentSong = state.currentSong.map(song => {
         if (song._id === updatedSong._id) {
           return { ...song, ...updatedSong };
         } else {
@@ -64,7 +66,7 @@ const songsSlice = createSlice({
       state.songs.push(action.payload);
       state.currentSong.push(action.payload);
     },
-    deleteSong(state, action: PayloadAction<string>) {
+    deleteSong(state, action: PayloadAction<string | undefined>) {
       const deletedId = action.payload
       state.currentSong = state.currentSong.filter((item) => {
         return item._id !== deletedId
@@ -86,18 +88,35 @@ const songsSlice = createSlice({
       state.openSidebar = action.payload
     },
     toggleFavorite(state, action: PayloadAction<string>) {
-      // const songId = action.payload;
-      // const index = state.currentSong.findIndex(song => song._id === songId);
-      // if (index !== -1) {
-      //   const updatedSong = { ...state.currentSong[index], isFavorite: !state.currentSong[index].isFavorite };
-      //   state.currentSong[index] = updatedSong;
-      // }
+      const songs = state.currentSong
+      const songId = action.payload
+      console.log("slice id ", songId)
+      const songIndex = songs.findIndex(song => song._id === songId);
+      if (songIndex !== -1) {
+        songs[songIndex].isFavorite = !songs[songIndex].isFavorite;
+        state.currentSong = songs
+       
+      } else {
+
+        console.error(`Song with ID ${songId} not found in the array.`);
+        
+      }
+    },
+    filterSongsBySearch(state,  action: PayloadAction<string>){
+      const songs  = state.songs
+      const searchChars = action.payload.toLowerCase()
+      state.currentSong = songs.filter((song)=>{
+
+        return song.title.toLowerCase().includes(searchChars) || 
+        song.artist.toLowerCase().includes(searchChars) || song.title.toLowerCase().includes(searchChars)
+      })
     }
   },
 });
 
 export const {
   filterCurrentSongs,
+  filterSongsBySearch,
   loadAllSongs,
   setCurrentBody,
   openAddSong,

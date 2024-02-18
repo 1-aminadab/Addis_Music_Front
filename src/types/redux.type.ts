@@ -1,0 +1,6 @@
+export const CREATE_SONG:string = 'CRETE_SONG'
+export const UPDATE_SONG_BY_ID:string = 'UPDATE_SONG_BY_ID'
+export const DELETE_SONG_BY_ID:string= 'DELETE_SONG_BY_ID'
+export const GET_ALL_SONGS:string= 'GET_ALL_SONGS'
+export const TOGGLE_FAVORITE_BY_ID:string= 'TOGGLE_FAVORITE_BY_ID'
+export const GET_STATISTICS:string= 'GET_STATISTICS'

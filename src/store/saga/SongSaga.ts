@@ -1,5 +1,3 @@
-// songSaga.ts
-
 import { call, fork, put, takeLatest } from 'redux-saga/effects';
 import axios, { AxiosResponse } from 'axios';
 import {
@@ -10,41 +8,54 @@ import {
   toggleFavorite,
   updateSong
 } from '../features/musicSlice';
-import { getSongsAPI, addSongAPI, deleteSongAPI, updateSongAPI, toggleFavoriteAPI, getStatisticsAPI } from '../../apis';
-import { Song } from '../../types/data.type';
+import { 
+  getSongsAPI,
+  addSongAPI, 
+  deleteSongAPI, 
+  updateSongAPI, 
+  toggleFavoriteAPI, 
+  getStatisticsAPI } from '../../apis';
+import { 
+  TOGGLE_FAVORITE_BY_ID,
+  DELETE_SONG_BY_ID, 
+  GET_ALL_SONGS, 
+  CREATE_SONG,
+  UPDATE_SONG_BY_ID, 
+  GET_STATISTICS } from '../../types/redux.type';
+import { Song, SongStatistics } from '../../types/data.type';
 import { PayloadAction } from '@reduxjs/toolkit';
 
-function* addSongSaga(action: PayloadAction<Song>) {
+interface Action {
+  id:string,
+  song:Song,
+  type:string,
+}
+
+function* addSongSaga(action:Action) {
   try {
-    const newSong = action.payload;
-    const response: AxiosResponse = yield call(() =>
-      axios.post('http://localhost:3000/songs', newSong)
-    );
+   
+    const response: AxiosResponse = yield addSongAPI(action.song)
     yield put(addSong(response.data.song));
   } catch (error) {
     console.log(error);
   }
 }
 
-function* deleteSongSaga(action: PayloadAction<string>) {
-  try {
-    const id = action.payload;
-    yield call(() =>
-      axios.delete(`http://localhost:3000/songs/${id}`)
-    );
-    yield put(deleteSong(id));
+function* deleteSongSaga(action:Action) {  
+  try { 
+    yield deleteSongAPI(action.id)
+    yield put(deleteSong(action.id));
   } catch (error) {
     console.log(error);
   }
 }
 
-function* updateSongSaga(action: PayloadAction<{ id: string, newSong: Song }>) {
+function* updateSongSaga(action:Action) {
+  console.log("Update data",action.song);
+  
   try {
-    const { id, newSong } = action.payload;
-    yield call(() =>
-      axios.put(`http://localhost:3000/songs/${id}`, newSong)
-    );
-    yield put(updateSong(newSong));
+    yield updateSongAPI(action.song)
+    yield put(updateSong(action.song));
   } catch (error) {
     console.log(error);
   }
@@ -52,9 +63,7 @@ function* updateSongSaga(action: PayloadAction<{ id: string, newSong: Song }>) {
 
 function* getAllSongsSaga() {
   try {
-    const response: AxiosResponse = yield call(() =>
-      axios.get('http://localhost:3000/songs')
-    );
+    const response: AxiosResponse = yield getSongsAPI()
     yield put(loadAllSongs(response.data));
   } catch (error) {
     console.log(error);
@@ -63,22 +72,19 @@ function* getAllSongsSaga() {
 
 function* getStatSaga() {
   try {
-    const response: AxiosResponse = yield call(() =>
-      axios.get('http://localhost:3000/songs/stat')
-    );
+    const response: AxiosResponse = yield getStatisticsAPI()
     yield put(loadStatistics(response.data));
   } catch (error) {
     console.log(error);
   }
 }
 
-function* toggleFavoriteSaga(action: PayloadAction<string>) {
+function* toggleFavoriteSaga(action:Action) { 
+   console.log("saga id",action.id);
   try {
-    const songId = action.payload;
-    const response: AxiosResponse = yield fork(async() =>
-     await axios.patch(`http://localhost:3000/songs/${songId}/toggle-favorite`)
-    );
-    yield put(toggleFavorite(songId));
+    const response:AxiosResponse  = yield toggleFavoriteAPI(action.id)
+    console.log(response);
+    yield put(toggleFavorite(action.id));
   } catch (error) {
     console.log(error);
   }
@@ -87,10 +93,10 @@ function* toggleFavoriteSaga(action: PayloadAction<string>) {
 
 
 export function* songSaga() {
-  yield takeLatest('songs/addSong', addSongSaga);
-  yield takeLatest('songs/deleteSong', deleteSongSaga);
-  yield takeLatest('songs/updateSong', updateSongSaga);
-  yield takeLatest('songs/getAllSongs', getAllSongsSaga);
-  yield takeLatest('songs/getStat', getStatSaga);
-  yield takeLatest('songs/toggleFavorite', toggleFavoriteSaga);
+  yield takeLatest(CREATE_SONG, addSongSaga);
+  yield takeLatest(DELETE_SONG_BY_ID, deleteSongSaga);
+  yield takeLatest(UPDATE_SONG_BY_ID, updateSongSaga);
+  yield takeLatest(GET_ALL_SONGS, getAllSongsSaga);
+  yield takeLatest(GET_STATISTICS, getStatSaga);
+  yield takeLatest(TOGGLE_FAVORITE_BY_ID, toggleFavoriteSaga);
 }

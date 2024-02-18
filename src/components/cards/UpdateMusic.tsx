@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { openUpdateSong, updateSong } from "../../store/features/musicSlice";
 import axios from "axios";
 import { Song } from "../../types/data.type";
+import { UPDATE_SONG_BY_ID } from "../../types/redux.type";
 // Define types for props
 interface AddCardProps {
   onAddSong?: (song: Song) => void;
@@ -60,6 +61,8 @@ const Header = styled.h2`
 // Functional component for the Add Card
 const UpdateCard: React.FC<AddCardProps> = ({ onAddSong, onCancel }) => {
   const {dataTobeUpdated} = useSelector((store: any) => store.songs);
+  
+  
   const [title, setTitle] = useState(dataTobeUpdated.title);
   const [artist, setArtist] = useState(dataTobeUpdated.artist);
   const [album, setAlbum] = useState(dataTobeUpdated.album);
@@ -68,13 +71,8 @@ const UpdateCard: React.FC<AddCardProps> = ({ onAddSong, onCancel }) => {
 
   const handleSubmit = async(e: React.FormEvent) => {
     e.preventDefault();
-    const newSong: any = { title, artist, album, genre };
-    await axios.put(`http://localhost:3000/songs/${dataTobeUpdated._id}`,newSong)
-    .then((res)=>{
-      dispatch(updateSong(res.data.song))}
-    )
-    .catch((error)=>console.log(error)
-    )
+    const newSong: any = { title, artist, album, genre, _id:dataTobeUpdated._id };
+    dispatch({type:UPDATE_SONG_BY_ID,  song:newSong})
    
   };
 
@@ -86,30 +84,30 @@ const UpdateCard: React.FC<AddCardProps> = ({ onAddSong, onCancel }) => {
         <InputLabel
           label="Title"
           type="text"
-          placeholder="song... "
+          placeholder="song... A"
           value={title}
-          onChange={(e) => setTitle(e.target.value)}
+          onChange={(e:any) => setTitle(e.target.value)}
         />
         <InputLabel
           label="Artist"
           type="text"
           placeholder="artist..."
           value={artist}
-          onChange={(e) => setArtist(e.target.value)}
+          onChange={(e:any) => setArtist(e.target.value)}
         />
         <InputLabel
           label="Album"
           type="text"
           placeholder="album..."
           value={album}
-          onChange={(e) => setAlbum(e.target.value)}
+          onChange={(e:any) => setAlbum(e.target.value)}
         />
         <InputLabel
           label="Genre"
           type="text"
           placeholder="genre..."
           value={genre}
-          onChange={(e) => setGenre(e.target.value)}
+          onChange={(e:any) => setGenre(e.target.value)}
         />
         <ButtonContainer>
 

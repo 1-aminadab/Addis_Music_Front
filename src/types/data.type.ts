@@ -38,4 +38,5 @@ export interface SongStatistics {
     updateSong:boolean;
     songStatistics?:SongStatistics;
     dataTobeUpdated:Partial<Song> ;
+    searchCars:string;
   }

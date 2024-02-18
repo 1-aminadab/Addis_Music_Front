@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { theme } from "../../../theme/customTheme";
-import { CustomSearchInput } from "../../../styles/Input.styled";
+import { CustomSearchInput, NavSearchInput } from "../../../styles/Input.styled";
 import CustomButton from "../../buttons/CustomButton";
 import { CustomImage } from "../../images/CustomImage";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
@@ -8,8 +8,10 @@ import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { CustomHeader } from "../../texts/Headers";
 import MenuOpenIcon from '@mui/icons-material/MenuOpen';
 import { useDispatch } from "react-redux";
-import { toggleSidebar } from "../../../store/features/musicSlice";
+import { filterSongsBySearch, toggleSidebar } from "../../../store/features/musicSlice";
 import LightLogo from "../../../assets/light-logo.png";
+import { SearchInput } from "../../inputs/SearchInput";
+import { useEffect, useState } from "react";
 
 export const Navbar = styled.div`
   height: ${({ theme }) => theme.sizes.navbarHeight};
@@ -29,6 +31,10 @@ export const Navbar = styled.div`
  `
 export const CustomNavbar = () => {
   const dispatch = useDispatch()
+  const [search, setSearch] = useState("")
+  useEffect(()=>{
+  dispatch(filterSongsBySearch(search))
+  },[search])
   return (
     <Navbar>
       
@@ -44,10 +50,12 @@ export const CustomNavbar = () => {
       />
       </OpenButton>
      
-      <CustomSearchInput
+      <NavSearchInput
         placeholder="Search tracks, albums, artists..."
         border="none"
         borderRadius="40px"
+        value = {search}
+        onChange = {(e:any)=>setSearch(e.target.value)}
       />
       <CustomButton
         backgroundColor={theme.colors.lightWhite}

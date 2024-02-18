@@ -7,7 +7,7 @@ export const Button = styled.button<CustomButtonProps>`
   background-color: ${({ backgroundColor }) => backgroundColor || '#007bff'};
   color: ${({ color }) => color || '#fff'};
   border: ${({border})=>border};
-  borderRadius: ${(borderRadius)=>borderRadius};
+  borderRadius: ${({borderRadius})=>borderRadius};
   cursor: pointer;
   display:flex;
   align-items:center;

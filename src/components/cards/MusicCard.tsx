@@ -15,9 +15,10 @@ import axios from "axios";
 import { Song } from "../../types/data.type";
 import MusicDisk from '../../assets/music-disk.svg'
 import { RotatingElement } from "../../styles/card.styled";
+import { DELETE_SONG_BY_ID, TOGGLE_FAVORITE_BY_ID } from "../../types/redux.type";
 
 const CardOptions = styled.div<{ visible:boolean}>`
-  display: ${({ visible }) => (visible ? "flex" : "none")};
+  display: ${({ visible }) => visible ? "flex" : "none"};
   background-color:${theme.colors.primaryBackground};
   border-radius: 10px;
   z-index:10000;
@@ -28,10 +29,7 @@ export const MusicCardComponent:React.FC<{song:Song}>  = ({song}) => {
   const [favorite, setFavorite] = useState(song.isFavorite);
   const [optionsVisible, setOptionsVisible] = useState(false);
   const dispatch = useDispatch()
-  const toggleSongFavorite = async() => {
-    dispatch(toggleFavorite(song?._id));
-    // setFavorite(!favorite);
-  };
+
 
   const toggleOptions = () => {
     setOptionsVisible(!optionsVisible);
@@ -57,7 +55,7 @@ export const MusicCardComponent:React.FC<{song:Song}>  = ({song}) => {
         {song.artist}
       </CustomHeader>
       <div style={{width:"100%",display:"flex", justifyContent:"space-between"}}>
-      <IconButton onClick={()=>toggleSongFavorite()}>
+      <IconButton onClick={()=>dispatch({type:TOGGLE_FAVORITE_BY_ID, id:song._id})}>
         <FavoriteIcon color={favorite ? "error" : "action"} />
       </IconButton>
       <CustomHeader animation={true} width={'50px'} size="10px" color="gray" weight="bold">
@@ -73,7 +71,7 @@ export const MusicCardComponent:React.FC<{song:Song}>  = ({song}) => {
           dispatch(openUpdateSong(true))}}>
          Update
         </CustomButton>
-        <CustomButton backgroundColor="none" onClick={()=>dispatch(deleteSong(song._id))}>
+        <CustomButton backgroundColor="none" onClick={()=>dispatch({type:DELETE_SONG_BY_ID, id:song._id})}>
           <DeleteIcon sx={{color:"white"}}/>
         </CustomButton>
       </CardOptions>

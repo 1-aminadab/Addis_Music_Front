@@ -24,9 +24,16 @@ export const CustomSearchInput = styled.input<SearchInputProps>`
 `;
 
 export interface InputWithLabelProps {
-  label: string;
-  type: string;
+  border?:string;
+  borderRadius?:string;
+  label?: string;
+  type?: string;
   placeholder?: string;
-  value: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  value?: string;
+  onChange?:any;
+}
+
+export const NavSearchInput:React.FC<InputWithLabelProps > = ({placeholder, value, onChange, borderRadius, border})=>{
+  
+  return <CustomSearchInput onChange={onChange} value = {value} placeholder = {placeholder} border = {border} borderRadius = {borderRadius}/>
 }

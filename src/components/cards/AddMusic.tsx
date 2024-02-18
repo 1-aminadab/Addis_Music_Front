@@ -90,28 +90,28 @@ const AddCard: React.FC<AddCardProps> = ({ onAddSong, onCancel }) => {
           type="text"
           placeholder="song... "
           value={title}
-          onChange={(e) => setTitle(e.target.value)}
+          onChange={(e:any) => setTitle(e.target.value)}
         />
         <InputLabel
           label="Artist"
           type="text"
           placeholder="artist..."
           value={artist}
-          onChange={(e) => setArtist(e.target.value)}
+          onChange={(e:any) => setArtist(e.target.value)}
         />
         <InputLabel
           label="Album"
           type="text"
           placeholder="album..."
           value={album}
-          onChange={(e) => setAlbum(e.target.value)}
+          onChange={(e:any) => setAlbum(e.target.value)}
         />
         <InputLabel
           label="Genre"
           type="text"
           placeholder="genre..."
           value={genre}
-          onChange={(e) => setGenre(e.target.value)}
+          onChange={(e:any) => setGenre(e.target.value)}
         />
         <ButtonContainer>
 
