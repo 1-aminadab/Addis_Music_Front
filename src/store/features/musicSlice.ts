@@ -15,7 +15,8 @@ const initialState: SongsState = {
   updateSong: false,
   songStatistics: undefined,
   dataTobeUpdated: {},
-  searchCars:""
+  searchCars:"",
+  isLoading:false
 };
 
 const songsSlice = createSlice({
@@ -110,6 +111,9 @@ const songsSlice = createSlice({
         return song.title.toLowerCase().includes(searchChars) || 
         song.artist.toLowerCase().includes(searchChars) || song.title.toLowerCase().includes(searchChars)
       })
+    },
+    LoadingState(state,aciton: PayloadAction<boolean>){
+      state.isLoading = aciton.payload
     }
   },
 });
@@ -129,7 +133,8 @@ export const {
   loadUpdateData,
   setCurrentSong,
   toggleSidebar,
-  toggleFavorite
+  toggleFavorite,
+  LoadingState
 } = songsSlice.actions;
 
 export default songsSlice.reducer;

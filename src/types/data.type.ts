@@ -39,4 +39,9 @@ export interface SongStatistics {
     songStatistics?:SongStatistics;
     dataTobeUpdated:Partial<Song> ;
     searchCars:string;
+    isLoading:boolean;
+  }
+
+  export interface UserData {
+    username:string;
   }
