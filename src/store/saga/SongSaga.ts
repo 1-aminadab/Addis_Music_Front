@@ -22,20 +22,27 @@ import {
   CREATE_SONG,
   UPDATE_SONG_BY_ID, 
   GET_STATISTICS } from '../../types/redux.type';
-import { Song, SongStatistics } from '../../types/data.type';
-import { PayloadAction } from '@reduxjs/toolkit';
+import { Song,} from '../../types/data.type';
+
 
 interface Action {
   id:string,
   song:Song,
   type:string,
 }
+interface UserAction {
+  type:string,
+  username:string
 
+}
 function* addSongSaga(action:Action) {
   try {
+   console.log(action.song);
    
     const response: AxiosResponse = yield addSongAPI(action.song)
+  
     yield put(addSong(response.data.song));
+    yield getStatSaga({type:GET_STATISTICS, username:action.song.createdBy})
   } catch (error) {
     console.log(error);
   }
@@ -61,18 +68,18 @@ function* updateSongSaga(action:Action) {
   }
 }
 
-function* getAllSongsSaga() {
+function* getAllSongsSaga(action:UserAction) {
   try {
-    const response: AxiosResponse = yield getSongsAPI()
+    const response: AxiosResponse = yield getSongsAPI(action.username)
     yield put(loadAllSongs(response.data));
   } catch (error) {
     console.log(error);
   }
 }
 
-function* getStatSaga() {
+function* getStatSaga(action:UserAction) {
   try {
-    const response: AxiosResponse = yield getStatisticsAPI()
+    const response: AxiosResponse = yield getStatisticsAPI(action.username)
     yield put(loadStatistics(response.data));
   } catch (error) {
     console.log(error);

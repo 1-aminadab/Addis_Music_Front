@@ -89,19 +89,21 @@ const songsSlice = createSlice({
       state.openSidebar = action.payload
     },
     toggleFavorite(state, action: PayloadAction<string>) {
-      const songs = state.currentSong
-      const songId = action.payload
-      console.log("slice id ", songId)
-      const songIndex = songs.findIndex(song => song._id === songId);
-      if (songIndex !== -1) {
-        songs[songIndex].isFavorite = !songs[songIndex].isFavorite;
-        state.currentSong = songs
-       
-      } else {
+      const id = action.payload
+      console.log("Favorite id ",id);
+      
+     const updatedSongs  = state.currentSong.map(item => {
+        if (item._id === id) {
+          console.log("here it goose");
+          return { ...item, isFavorite: !item.isFavorite };
+        }
+        return item;
+      });
+      console.log(updatedSongs);
+      
+    state.currentSong = updatedSongs
 
-        console.error(`Song with ID ${songId} not found in the array.`);
-        
-      }
+
     },
     filterSongsBySearch(state,  action: PayloadAction<string>){
       const songs  = state.songs

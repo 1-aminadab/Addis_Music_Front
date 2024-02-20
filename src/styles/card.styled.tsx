@@ -37,3 +37,13 @@ export const RotatingElement = styled.div<{rotate:boolean}>`
     animation: ${rotateAnimation} 2s linear infinite; /* Apply the animation */
   }
 `;
+
+export const ListContainer = styled.div`
+display:flex;
+flex-direction:row;
+align-items:flex-start;
+flex-wrap:wrap;
+height:fit-content;
+width:100vw;
+gap:10px;
+`

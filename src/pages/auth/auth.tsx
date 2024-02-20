@@ -10,6 +10,7 @@ import { theme } from '../../theme/customTheme';
 import LoadingComponent from '../../components/loading/Loading';
 import { useDispatch } from 'react-redux';
 import { LoadingState } from '../../store/features/musicSlice';
+import { useNavigate } from 'react-router-dom';
 const Container = styled.div`
   display: flex;
   justify-content: center;
@@ -29,7 +30,7 @@ const FormContainer = styled.div`
 const Title = styled.h2`
   text-align: center;
   margin-bottom: 20px;
-  color:${theme.colors.white};
+  color:${theme.colors.primaryBackground};
   font-size:20px;
 `;
 
@@ -71,6 +72,7 @@ export const AuthForm = () => {
   const [username, setUsername] = useState('');
   const [isLogin, setIsLogin] = useState(true);
   const dispatch = useDispatch()
+  const navigate = useNavigate()
   const handleSubmit = async(e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch(LoadingState(true))
@@ -81,7 +83,9 @@ export const AuthForm = () => {
         // Show success toast notification
         toast.success('Login successful');
         localStorage.setItem('userData', JSON.stringify(response.data.user));
+       
         dispatch(LoadingState(false))
+        navigate('/')
       } else {
         const response:AxiosResponse = await userSignup({username})
           localStorage.setItem('userData', JSON.stringify(response.data.user));
@@ -89,6 +93,7 @@ export const AuthForm = () => {
         // Show success toast notification
         toast.success('Sign up successful');
         dispatch(LoadingState(false))
+        navigate('/')
       }
     } catch (error) {
       console.error('Error:', error);

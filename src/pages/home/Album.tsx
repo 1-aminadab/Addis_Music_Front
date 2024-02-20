@@ -5,17 +5,14 @@ import { useSelector,useDispatch } from "react-redux";
 import { filterCurrentSongs, toggleFilteredSong } from "../../store/features/musicSlice";
 import { Song } from "../../types/data.type";
 import { RootState } from "../../store/store";
-const ListContainer = styled.div`
-display:flex;
-flex-direction:column;
-gap:10px;
-`
+import { ListContainer } from "../../styles/card.styled";
+
 export const AlbumList:any = ()=>{
     const {songStatistics} = useSelector((store: RootState) => store.songs);
     const dispatch = useDispatch()
     return (
         < ListContainer>{
-            songStatistics?.artistAlbumCounts.map((item:any)=>{              
+             songStatistics?.artistAlbumCounts.map((item:any)=>{              
             return(
                 <AlbumComponent onClick={()=>{
                      dispatch(filterCurrentSongs({album:item._id.album}))

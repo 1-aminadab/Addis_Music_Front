@@ -3,11 +3,8 @@ import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { filterCurrentSongs, toggleFilteredSong } from "../../store/features/musicSlice";
 import { RootState } from "../../store/store";
-const ListContainer = styled.div`
-display:flex;
-flex-direction:column;
-gap:10px;
-`
+import { ListContainer } from "../../styles/card.styled";
+
 export const ArtistsList:any = ()=>{
     const {songStatistics} = useSelector((store: RootState) => store.songs);
     const dispatch = useDispatch()
@@ -15,7 +12,7 @@ export const ArtistsList:any = ()=>{
     
     return (
         < ListContainer>{
-            songStatistics.artistSongCounts.map((item:any)=>{
+            songStatistics && songStatistics.artistSongCounts.map((item:any)=>{
                 console.log(item);
                 
             return(

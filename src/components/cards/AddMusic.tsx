@@ -6,8 +6,9 @@ import CustomButton from "../buttons/CustomButton";
 import { useDispatch, useSelector } from "react-redux";
 import { addSong, openAddSong } from "../../store/features/musicSlice";
 import axios from "axios";
-import { Song } from "../../types/data.type";
+import { Song, UserData } from "../../types/data.type";
 import { RootState } from "../../store/store";
+import { CREATE_SONG } from "../../types/redux.type";
 // Define types for props
 interface AddCardProps {
   onAddSong?: (song: Song) => void;
@@ -60,24 +61,18 @@ const Header = styled.h2`
 
 // Functional component for the Add Card
 const AddCard: React.FC<AddCardProps> = ({ onAddSong, onCancel }) => {
- const {userData} = useSelector((store:RootState)=> store.songs)
  const dispatch = useDispatch()
   const [title, setTitle] = useState("");
   const [artist, setArtist] = useState("");
   const [album, setAlbum] = useState("");
   const [genre, setGenre] = useState("");
-
-
+  const userDataString = localStorage.getItem('userData');
+  const userData: UserData = userDataString ? JSON.parse(userDataString) : null
+  
   const handleSubmit = async(e: React.FormEvent) => {
     e.preventDefault();
-    const newSong: Song = {createdBy:userData.userName, title, artist, album, genre };
-    
-    await axios.post('http://localhost:3000/songs', newSong)
-    .then((res)=>{
-      dispatch(addSong(res.data.song))
-     })
-    .catch((error)=>console.log(error)
-    )
+    const newSong: Song = {createdBy:userData.username, title, artist, album, genre };
+    dispatch({type:CREATE_SONG, song:newSong})
    
   };
 

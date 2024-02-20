@@ -47,8 +47,8 @@ export const CustomSideBar = () => {
 
       </CloseButton>
       
-     <div style={{ display: 'flex',flexGrow:1,flexDirection: 'column', gap: '10px', overflowY:"scroll" }}>
-        <div>
+     <div style={{ display: 'flex',flexDirection: 'column', gap: '10px',height:'fit-content' }}>
+        <div style={{}}>
 
           {sidebarButtonContent.map((button, index) => {
             if (button.type === 'regular') {

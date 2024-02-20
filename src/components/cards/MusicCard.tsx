@@ -27,7 +27,7 @@ const CardOptions = styled.div<{ visible:boolean}>`
 
 export const MusicCardComponent:React.FC<{song:Song}>  = ({song}) => {
   const {currentPlaying} = useSelector((store: RootState) => store.songs);
-  const [favorite, setFavorite] = useState(song.isFavorite);
+  const [favorite] = useState(song.isFavorite);
   const [optionsVisible, setOptionsVisible] = useState(false);
   const dispatch = useDispatch()
 

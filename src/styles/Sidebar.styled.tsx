@@ -4,6 +4,7 @@ import { theme } from "../theme/customTheme";
 export const SideBar = styled.div<{openSidebar:boolean}>`
     width: 250px;
     height: 100vh;
+    overflow-y:scroll;
     background-color: ${({theme}) => theme.colors.secondaryBackground};
     @media (max-width: 576px) {
         width: 100vw;

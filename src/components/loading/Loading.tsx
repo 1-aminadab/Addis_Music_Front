@@ -35,9 +35,11 @@ const LoaderDot = styled.div`
   animation: ${moveUpDown} 1s ease-in-out infinite;
   &:nth-child(2) {
     animation-delay: 0.2s;
+    background-color:blue;
   }
   &:nth-child(3) {
     animation-delay: 0.4s;
+    background-color:green;
   }
 `;
 
