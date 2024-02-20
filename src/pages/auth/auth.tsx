@@ -120,7 +120,7 @@ export const AuthForm = () => {
             type="text"
             placeholder="Username"
             value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            onChange={(e:any) => setUsername(e.target.value)}
           />
           <Button type="submit">{isLogin ? 'Login' : 'Sign Up'}</Button>
         </form>
