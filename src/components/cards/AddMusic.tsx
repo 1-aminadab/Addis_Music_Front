@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addSong, openAddSong } from "../../store/features/musicSlice";
 import axios from "axios";
 import { Song } from "../../types/data.type";
+import { RootState } from "../../store/store";
 // Define types for props
 interface AddCardProps {
   onAddSong?: (song: Song) => void;
@@ -59,7 +60,7 @@ const Header = styled.h2`
 
 // Functional component for the Add Card
 const AddCard: React.FC<AddCardProps> = ({ onAddSong, onCancel }) => {
- const {userData} = useSelector((store:any)=> store.songs)
+ const {userData} = useSelector((store:RootState)=> store.songs)
  const dispatch = useDispatch()
   const [title, setTitle] = useState("");
   const [artist, setArtist] = useState("");

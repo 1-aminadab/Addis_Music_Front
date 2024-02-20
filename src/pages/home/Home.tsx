@@ -1,23 +1,24 @@
 import styled from "styled-components";
-import { CustomSideBar } from "../components/bars/sidebar/SideBar";
-import { theme } from "../theme/customTheme";
-import { CustomNavbar } from "../components/bars/navbar/NavBar";
-import { MusicCard } from "../styles/card.styled";
-import { MusicCardComponent } from "../components/cards/MusicCard";
+import { CustomSideBar } from "../../components/bars/sidebar/SideBar";
+import { theme } from "../../theme/customTheme";
+import { CustomNavbar } from "../../components/bars/navbar/NavBar";
+import { MusicCard } from "../../styles/card.styled";
+import { MusicCardComponent } from "../../components/cards/MusicCard";
 import { CustomMusicController } from "./MusicController";
-import AddCard from "../components/cards/AddMusic";
+import AddCard from "../../components/cards/AddMusic";
 import { useSelector } from "react-redux";
 import { ArtistsList } from "./Artist";
 import { GenreList } from "./Genre";
 import { AlbumList } from "./Album";
-import UpdateCard from "../components/cards/UpdateMusic";
+import UpdateCard from "../../components/cards/UpdateMusic";
 import { useEffect } from "react";
 import axios from 'axios'
 import { useDispatch } from "react-redux";
-import { loadAllSongs, loadStatistics} from "../store/features/musicSlice";
-import { Song } from "../types/data.type";
+import { loadAllSongs, loadStatistics} from "../../store/features/musicSlice";
+import { Song } from "../../types/data.type";
 import { MusicContainer } from "./ProductList";
-import { GET_ALL_SONGS, GET_STATISTICS } from "../types/redux.type";
+import { GET_ALL_SONGS, GET_STATISTICS } from "../../types/redux.type";
+import { RootState } from "../../store/store";
 
 const Home = styled.div`
   width: 100vw;
@@ -36,7 +37,7 @@ const Body = styled.div`
 `;
 
 export const CustomHome = () => {
-  const { currentBody,addSong, updateSong, currentSong,songFiltered} = useSelector((store: any) => store.songs);
+  const { currentBody,addSong, updateSong, currentSong,songFiltered} = useSelector((store: RootState) => store.songs);
   const dispatch = useDispatch()
   useEffect(()=>{
     dispatch({type:GET_ALL_SONGS})

@@ -16,6 +16,7 @@ import { Song } from "../../types/data.type";
 import MusicDisk from '../../assets/music-disk.svg'
 import { RotatingElement } from "../../styles/card.styled";
 import { DELETE_SONG_BY_ID, TOGGLE_FAVORITE_BY_ID } from "../../types/redux.type";
+import { RootState } from "../../store/store";
 
 const CardOptions = styled.div<{ visible:boolean}>`
   display: ${({ visible }) => visible ? "flex" : "none"};
@@ -25,7 +26,7 @@ const CardOptions = styled.div<{ visible:boolean}>`
 `;
 
 export const MusicCardComponent:React.FC<{song:Song}>  = ({song}) => {
-  const {currentPlaying} = useSelector((store: any) => store.songs);
+  const {currentPlaying} = useSelector((store: RootState) => store.songs);
   const [favorite, setFavorite] = useState(song.isFavorite);
   const [optionsVisible, setOptionsVisible] = useState(false);
   const dispatch = useDispatch()

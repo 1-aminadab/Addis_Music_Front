@@ -1,6 +1,6 @@
-import { MusicCardComponent } from "../components/cards/MusicCard"
-import { theme } from "../theme/customTheme";
-import { Song } from "../types/data.type";
+import { MusicCardComponent } from "../../components/cards/MusicCard"
+import { theme } from "../../theme/customTheme";
+import { Song } from "../../types/data.type";
 
 
 export const MusicContainer:React.FC<{songs:Song[]}> = ({songs})=>{

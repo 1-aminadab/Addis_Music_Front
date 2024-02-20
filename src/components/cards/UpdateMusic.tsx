@@ -8,6 +8,7 @@ import { openUpdateSong, updateSong } from "../../store/features/musicSlice";
 import axios from "axios";
 import { Song } from "../../types/data.type";
 import { UPDATE_SONG_BY_ID } from "../../types/redux.type";
+import { RootState } from "../../store/store";
 // Define types for props
 interface AddCardProps {
   onAddSong?: (song: Song) => void;
@@ -60,7 +61,7 @@ const Header = styled.h2`
 
 // Functional component for the Add Card
 const UpdateCard: React.FC<AddCardProps> = ({ onAddSong, onCancel }) => {
-  const {dataTobeUpdated} = useSelector((store: any) => store.songs);
+  const {dataTobeUpdated} = useSelector((store: RootState) => store.songs);
   
   
   const [title, setTitle] = useState(dataTobeUpdated.title);

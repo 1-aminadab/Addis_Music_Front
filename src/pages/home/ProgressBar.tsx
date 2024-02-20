@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { theme } from '../theme/customTheme';
+import { theme } from '../../theme/customTheme';
 interface ProgressBarProps {
   value?: number;
   max?: number;

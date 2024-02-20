@@ -12,6 +12,7 @@ import { filterCurrentSongs, setCurrentBody, toggleFilteredSong, toggleSidebar }
 import AddIcon from '@mui/icons-material/Add';
 import { openAddSong } from "../../../store/features/musicSlice";
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
+import { RootState } from "../../../store/store";
 const color = theme.colors;
 
 const CloseButton = styled.div`
@@ -27,7 +28,7 @@ cursor:pointer;
 
 export const CustomSideBar = () => {
     const [currentIndex, setCurrentIndex] = useState(0)
-    const {openSidebar} = useSelector((store:any)=> store.songs)
+    const {openSidebar} = useSelector((store:RootState)=> store.songs)
     const setIndex = (index:number)=>{
         setCurrentIndex(index)
     }

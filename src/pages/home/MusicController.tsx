@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import CustomButton from "../components/buttons/CustomButton";
+import CustomButton from "../../components/buttons/CustomButton";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import PauseIcon from "@mui/icons-material/Pause";
 import SkipPreviousIcon from "@mui/icons-material/SkipPrevious";
@@ -15,11 +15,12 @@ import VolumeOffIcon from "@mui/icons-material/VolumeOff";
 import VolumeUpIcon from "@mui/icons-material/VolumeUp";
 import { useState, useRef, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { SongsState } from "../types/data.type";
-import SampleMusic from '../assets/sample-audio.mp3';
-import { theme } from "../theme/customTheme";
-import { CustomImage } from "../components/images/CustomImage";
-import { CustomHeader } from "../components/texts/Headers";
+import { SongsState } from "../../types/data.type";
+import SampleMusic from '../../assets/sample-audio.mp3';
+import { theme } from "../../theme/customTheme";
+import { CustomImage } from "../../components/images/CustomImage";
+import { CustomHeader } from "../../components/texts/Headers";
+import { RootState } from "../../store/store";
 const MusicController = styled.div<{ isPlaying: boolean }>`
   height: ${({ theme }) => theme.sizes.controllerHeight};
   width: 100%;
@@ -69,7 +70,7 @@ const VolumeBar = styled(ProgressBar)`
 `;
 
 export const CustomMusicController = () => {
-  const { currentPlaying } = useSelector((store: any) => store.songs);
+  const { currentPlaying } = useSelector((store: RootState) => store.songs);
   const audioRef = useRef<HTMLAudioElement>(null);
 
   const [progress, setProgress] = useState(0);

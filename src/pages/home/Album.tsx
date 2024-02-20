@@ -1,16 +1,17 @@
-import { ArtistsComponent } from "../components/cards/ArtistCard";
+import { ArtistsComponent } from "../../components/cards/ArtistCard";
 import styled from "styled-components";
-import { AlbumComponent } from "../components/cards/AlbumCard";
+import { AlbumComponent } from "../../components/cards/AlbumCard";
 import { useSelector,useDispatch } from "react-redux";
-import { filterCurrentSongs, toggleFilteredSong } from "../store/features/musicSlice";
-import { Song } from "../types/data.type";
+import { filterCurrentSongs, toggleFilteredSong } from "../../store/features/musicSlice";
+import { Song } from "../../types/data.type";
+import { RootState } from "../../store/store";
 const ListContainer = styled.div`
 display:flex;
 flex-direction:column;
 gap:10px;
 `
 export const AlbumList:any = ()=>{
-    const {songStatistics} = useSelector((store: any) => store.songs);
+    const {songStatistics} = useSelector((store: RootState) => store.songs);
     const dispatch = useDispatch()
     return (
         < ListContainer>{
