@@ -22,8 +22,9 @@ import {
   CREATE_SONG,
   UPDATE_SONG_BY_ID, 
   GET_STATISTICS } from '../../types/redux.type';
-import { Song,} from '../../types/data.type';
-
+import { Song, UserData,} from '../../types/data.type';
+const userDataString = localStorage.getItem('userData');
+  const userData: UserData = userDataString ? JSON.parse(userDataString) : null
 
 interface Action {
   id:string,
@@ -49,6 +50,7 @@ function* deleteSongSaga(action:Action) {
   try { 
     yield deleteSongAPI(action.id)
     yield put(deleteSong(action.id));
+   // if(userData) yield  getStatisticsAPI(userData.username)
   } catch (error) {
     console.log(error);
   }

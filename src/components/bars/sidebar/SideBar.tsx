@@ -5,7 +5,7 @@ import { CustomImage } from "../../images/CustomImage";
 import LightLogo from "../../../assets/light-logo.png";
 import { theme } from "../../../theme/customTheme";
 import { CustomHeader } from "../../texts/Headers";
-import { ReactNode, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import { sidebarButtonContent } from "./SideBarButtons";
 import { useDispatch, useSelector } from "react-redux";
 import { filterCurrentSongs, setCurrentBody, toggleFilteredSong, toggleSidebar } from "../../../store/features/musicSlice";
@@ -28,12 +28,12 @@ cursor:pointer;
 
 export const CustomSideBar = () => {
     const [currentIndex, setCurrentIndex] = useState(0)
-    const {openSidebar} = useSelector((store:RootState)=> store.songs)
+    const {openSidebar, songStatistics } = useSelector((store:RootState)=> store.songs)
     const setIndex = (index:number)=>{
         setCurrentIndex(index)
     }
     const dispatch = useDispatch()
-    
+  
   return (
     <SideBar openSidebar={openSidebar}>
       <CustomImage
@@ -75,6 +75,15 @@ export const CustomSideBar = () => {
                   <CustomHeader size="medium" color={active ? color.primary : color.white} weight="400">
                     {button.title}
                   </CustomHeader>
+                  <div style={{flex:1, display:"flex", justifyContent:"flex-end"}}>
+                     <CustomHeader  size="small" color={active ? color.primary : color.white} weight="400">
+                    {button.title === "Home" && songStatistics?.totalSongs}
+                    {button.title === "Genre" && songStatistics?.totalGenres}
+                    {button.title === "Artist" && songStatistics?.totalArtists}
+                    {button.title === "Album" && songStatistics?.totalAlbums}
+                  </CustomHeader>
+                  </div>
+                 
                 </CustomButton>
               );
             }
@@ -92,7 +101,7 @@ export const CustomSideBar = () => {
           </CustomButton>
           </div>
           <br />
-          {sidebarButtonContent.map((button, index) => {
+          {sidebarButtonContent && sidebarButtonContent.map((button, index) => {
             if (button.type === 'special') {
               const active = currentIndex === index;
               return (
@@ -115,6 +124,7 @@ export const CustomSideBar = () => {
                   <CustomHeader size="medium" color={active ? color.primary : color.white} weight="400">
                     {button.title}
                   </CustomHeader>
+                  
                 </CustomButton>
               );
             }
