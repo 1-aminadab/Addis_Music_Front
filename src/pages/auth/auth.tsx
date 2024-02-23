@@ -104,7 +104,7 @@ export const AuthForm = () => {
   };
 
   return (
-    <Container className='container'>
+    <Container className='containerbox'>
     
       <div style={{position:"absolute", top:"20px", left:"20px" }}>
           <img style={{width:"200px"}} src={AuthBg} alt="" />

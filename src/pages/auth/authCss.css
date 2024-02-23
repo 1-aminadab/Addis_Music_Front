@@ -1,16 +1,17 @@
+
+.containerbox{
+background-image: url('../../assets/auth/auth-bg1.jpg');
+background-color: #0098becc;
+background-size: cover;
+background-repeat: no-repeat;
+background-blend-mode:hard-light;
+}
 .auth-cont{
-    background-color: rgba(255, 255, 255, 0.336);
-    -webkit-backdrop-filter: blur(5px);   
-     backdrop-filter: blur(5px);
+    background-color: rgba(255, 255, 255, 0.185);
+    -webkit-backdrop-filter: blur(7px);   
+     backdrop-filter: blur(7px);
      z-index: 100;
      border-right: 1px solid white;
      border: 1px solid white;
   
-}
-.container{
-background-image: url('../../assets/auth/auth-bg1.jpg');
-background-color: #0098becc;
-background-size: cover;
-width: 100%;
-background-blend-mode:hard-light;
 }
