@@ -49,7 +49,7 @@ export const theme: CustomTheme = {
     lightGray:'#55555A',
     lightWhite:'#fff1',
     lighter:"#fff4",
-    primary:'#009688',
+    primary:'#008080',
     secondary:'#0d90EE'
 
   },

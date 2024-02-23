@@ -7,6 +7,7 @@ const initialState: SongsState = {
   userData: { userName: "amanuel" },
   songs: [],
   currentSong: [],
+  recentSongs:[],
   currentBody: 'home',
   songFiltered: false,
   openSidebar: false,
@@ -90,19 +91,19 @@ const songsSlice = createSlice({
     },
     toggleFavorite(state, action: PayloadAction<string>) {
       const id = action.payload
-      console.log("Favorite id ",id);
+      console.log("toggle id", id);
       
-     const updatedSongs  = state.currentSong.map(item => {
-        if (item._id === id) {
-          console.log("here it goose");
-          return { ...item, isFavorite: !item.isFavorite };
-        }
-        return item;
-      });
-      console.log(updatedSongs);
-      
-    state.currentSong = updatedSongs
-
+      const songs = state.currentSong
+      const songIndex = songs.findIndex(song => song._id === id);
+    // If the song with the given ID is found
+    if (songIndex !== -1) {
+        // Toggle the favorite property of the song
+        state.currentSong[songIndex].isFavorite = !songs[songIndex].isFavorite;
+        // Print the updated list of songs
+        console.log("Updated Songs:", songs);
+    } else {
+        console.log("Song with ID", id, "not found.");
+    }
 
     },
     filterSongsBySearch(state,  action: PayloadAction<string>){
@@ -116,7 +117,19 @@ const songsSlice = createSlice({
     },
     LoadingState(state,aciton: PayloadAction<boolean>){
       state.isLoading = aciton.payload
+    },
+    addRecentSongs(state,aciton: PayloadAction<Song>){
+      const song= aciton.payload
+      const recentSongs = state.recentSongs
+      const existingIndex = recentSongs.findIndex(music => music._id === song._id);
+    if (existingIndex !== -1) {
+        // Remove the existing music from the array
+        state.recentSongs.splice(existingIndex, 1);
     }
+    // Add the new music to the beginning of the array
+    state.recentSongs.unshift(song);
+   
+    },
   },
 });
 
@@ -136,7 +149,8 @@ export const {
   setCurrentSong,
   toggleSidebar,
   toggleFavorite,
-  LoadingState
+  LoadingState,
+  addRecentSongs
 } = songsSlice.actions;
 
 export default songsSlice.reducer;

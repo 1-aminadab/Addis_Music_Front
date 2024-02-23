@@ -12,11 +12,16 @@ export const MusicCard = styled.div`
   gap: 5px;
   width: fit-content;
   position:relative;
-  background-color: ${({ theme }) => theme.colors.lightWhite }; 
+  background: linear-gradient(135deg, ${({ theme }) => theme.colors.secondaryBackground}, ${({ theme }) => theme.colors.primary + '55'});
+
   opacity:0.9;
+  // box-shadow: 0 0 5px 0px ${({ theme }) => theme.colors.primary} ;
+  border:1px solid ${({ theme }) => theme.colors.primary+'77'};
   cursor:pointer;
+  transition:all 200ms;
   &:hover {
     opacity:1;
+     background: linear-gradient(135deg,  ${({ theme }) => theme.colors.primary + '55'});
   }
 `;
 

@@ -43,7 +43,7 @@ export const CustomHome = () => {
   const userDataString = localStorage.getItem('userData');
   const userData: UserData = userDataString ? JSON.parse(userDataString) : null
 
-  const { currentBody,addSong, updateSong, currentSong,songFiltered} = useSelector((store: RootState) => store.songs);
+  const { currentBody,addSong,recentSongs, updateSong, currentSong,songFiltered} = useSelector((store: RootState) => store.songs);
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
@@ -72,7 +72,7 @@ export const CustomHome = () => {
             {currentBody.toLowerCase() === "artist" && (songFiltered ? <MusicContainer songs={currentSong}/> :<ArtistsList/>)}
             {currentBody.toLowerCase() === "genre" &&   (songFiltered ?  <MusicContainer songs={currentSong}/> :<GenreList/>) }
             {currentBody.toLowerCase() === "album" && (songFiltered ? <MusicContainer songs={currentSong}/> : <AlbumList/>)}
-            {currentBody.split(" ")[0].toLowerCase() === "recent" && (<div>Recent</div>)}
+            {currentBody.split(" ")[0].toLowerCase() === "recent" && <MusicContainer songs={recentSongs}/>}
             {currentBody.toLowerCase() === "favorite" && <MusicContainer songs={currentSong}/>}
             {currentBody.toLowerCase() === "home" && <MusicContainer songs={currentSong}/>}
   

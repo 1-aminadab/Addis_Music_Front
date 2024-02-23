@@ -30,6 +30,7 @@ export interface SongStatistics {
     userData:Object;
     songs: Song[];
     currentSong:Song[];
+    recentSongs:Song[];
     currentBody:string;
     currentPlaying:Song | null;
     addSong:boolean;

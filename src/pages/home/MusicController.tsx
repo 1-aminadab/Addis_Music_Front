@@ -24,6 +24,7 @@ import { RootState } from "../../store/store";
 const MusicController = styled.div<{ isPlaying: boolean }>`
   height: ${({ theme }) => theme.sizes.controllerHeight};
   width: 100%;
+  background: linear-gradient(45deg, ${({ theme }) => theme.colors.secondaryBackground}, ${({ theme }) => theme.colors.primary + '32'});
   background-color: ${({ theme }) => theme.colors.secondaryBackground};
   display: ${({ isPlaying }) => (isPlaying ? "flex" : "none")};
   align-items: center;

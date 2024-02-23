@@ -85,7 +85,7 @@ export const CustomSideBar = () => {
           <br />
           <div style={{display:"flex",alignItems:"center", padding:"0 10px", gap:"10px"}}>
           <CustomHeader color="gray">Add new Song</CustomHeader>
-          <CustomButton onClick={()=>{dispatch(toggleSidebar(false))
+          <CustomButton shape="circle" onClick={()=>{dispatch(toggleSidebar(false))
           dispatch(openAddSong(true))
           }} backgroundColor={theme.colors.primary} padding="8px" borderRadius="10px" >
           <AddIcon sx={{}}/>

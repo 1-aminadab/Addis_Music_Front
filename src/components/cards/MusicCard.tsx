@@ -10,7 +10,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { theme } from "../../theme/customTheme";
 import { useDispatch, useSelector } from "react-redux";
 import CustomButton from "../buttons/CustomButton";
-import { deleteSong, loadUpdateData, openUpdateSong, setCurrentSong, toggleFavorite, updateSong } from "../../store/features/musicSlice";
+import { addRecentSongs, deleteSong, loadUpdateData, openUpdateSong, setCurrentSong, toggleFavorite, updateSong } from "../../store/features/musicSlice";
 import axios from "axios";
 import { Song } from "../../types/data.type";
 import MusicDisk from '../../assets/music-disk.svg'
@@ -42,6 +42,7 @@ export const MusicCardComponent:React.FC<{song:Song}>  = ({song}) => {
   return (
     <StyledMusicCard onClick={()=>{
     dispatch(setCurrentSong(song))
+    dispatch(addRecentSongs(song))
     }}>
      <RotatingElement rotate = {currentPlaying?._id === song._id}>
         <CustomImage
