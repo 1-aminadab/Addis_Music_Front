@@ -30,19 +30,16 @@ interface Action {
   song:Song,
   type:string,
 }
+
 interface UserAction {
   type:string,
   username:string
-
 }
 function* addSongSaga(action:Action) {
   try {
    console.log(action.song);
-   
     const response: AxiosResponse = yield addSongAPI(action.song)
-  
     yield put(addSong(response.data.song));
-   // yield getStatSaga({type:GET_STATISTICS, username:action.song.createdBy})
   } catch (error) {
     console.log(error);
   }

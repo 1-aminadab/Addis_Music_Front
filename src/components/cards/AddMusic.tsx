@@ -71,7 +71,7 @@ const AddCard: React.FC<AddCardProps> = ({ onAddSong, onCancel }) => {
   
   const handleSubmit = async(e: React.FormEvent) => {
     e.preventDefault();
-    const newSong: Song = {createdBy:userData.username, title, artist, album, genre };
+    const newSong: Song = { createdBy: userData ? userData.username : '', title, artist, album, genre };
     dispatch({type:CREATE_SONG, song:newSong})
    
   };
