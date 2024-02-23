@@ -49,8 +49,8 @@ export const CustomHome = () => {
 
   
   useEffect(()=>{
-    dispatch({type:GET_ALL_SONGS, username:userData.username})
-    dispatch({type:GET_STATISTICS, username:userData.username})
+    dispatch({type:GET_ALL_SONGS, username:userData ? userData.username : '' })
+    dispatch({type:GET_STATISTICS, username:userData ? userData.username : ''})
   },[])
 
   useEffect(() => {

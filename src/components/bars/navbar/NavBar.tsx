@@ -13,6 +13,7 @@ import LightLogo from "../../../assets/light-logo.png";
 import { SearchInput } from "../../inputs/SearchInput";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { UserData } from "../../../types/data.type";
 
 export const Navbar = styled.div`
   height: ${({ theme }) => theme.sizes.navbarHeight};
@@ -35,7 +36,8 @@ export const CustomNavbar = () => {
   const dispatch = useDispatch()
   const [search, setSearch] = useState("")
   const [openLogout, setOpenLogout] = useState(false)
-  
+  const userDataString = localStorage.getItem('userData');
+  const userData: UserData = userDataString ? JSON.parse(userDataString) : null
   useEffect(()=>{
   dispatch(filterSongsBySearch(search))
   },[search])
@@ -81,7 +83,7 @@ export const CustomNavbar = () => {
       >
         <AccountCircleOutlinedIcon fontSize="large" sx={{}} />
         <CustomHeader size="small" color={theme.colors.white}>
-          Aman
+        { userData ? userData.username : 'unknown'}
         </CustomHeader>
         <KeyboardArrowDownIcon />
         {
