@@ -23,7 +23,7 @@ interface MusicContainerProps {
   songs: Song[];
 }
 
-const MusicContainer: React.FC<MusicContainerProps> = ({ songs }) => {
+export const MusicContainer: React.FC<MusicContainerProps> = ({ songs }) => {
   return (
     <MusicContainerWrapper>
       {songs.map((song: Song) => (
@@ -33,4 +33,4 @@ const MusicContainer: React.FC<MusicContainerProps> = ({ songs }) => {
   );
 };
 
-export default MusicContainer;
+
