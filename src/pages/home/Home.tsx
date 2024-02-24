@@ -47,18 +47,14 @@ export const CustomHome = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
-  
+ 
   useEffect(()=>{
-    dispatch({type:GET_ALL_SONGS, username:userData ? userData.username : '' })
-    dispatch({type:GET_STATISTICS, username:userData ? userData.username : ''})
-  },[])
-
-  useEffect(() => {
-    const userData = localStorage.getItem("userData");
     if (!userData) {
       navigate("/auth");
     }
-  }, []);
+    dispatch({type:GET_ALL_SONGS, username:userData ? userData.username : '' })
+    dispatch({type:GET_STATISTICS, username:userData ? userData.username : ''})
+  },[])
   return (
     <Home>
       <CustomSideBar />

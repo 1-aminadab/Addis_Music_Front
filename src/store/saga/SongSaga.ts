@@ -1,6 +1,7 @@
 import { call, fork, put, takeLatest } from 'redux-saga/effects';
 import axios, { AxiosResponse } from 'axios';
 import {
+  LoadingState,
   addSong,
   deleteSong,
   loadAllSongs,
@@ -38,9 +39,12 @@ interface UserAction {
 }
 function* addSongSaga(action:Action) {
   try {
+    
    console.log(action.song);
     const response: AxiosResponse = yield addSongAPI(action.song)
     yield put(addSong(response.data.song));
+    yield getAllSongsSaga({type:GET_STATISTICS, username:userData.username})
+
   } catch (error) {
     console.log(error);
   }
@@ -57,8 +61,6 @@ function* deleteSongSaga(action:Action) {
 }
 
 function* updateSongSaga(action:Action) {
-  console.log("Update data",action.song);
-  
   try {
     yield updateSongAPI(action.song)
     yield put(updateSong(action.song));
@@ -88,9 +90,11 @@ function* getStatSaga(action:UserAction) {
 function* toggleFavoriteSaga(action:Action) { 
    console.log("saga id",action.id);
   try {
+    yield put(LoadingState(true))
     const response:AxiosResponse  = yield toggleFavoriteAPI(action.id)
     console.log(response);
     yield put(toggleFavorite(action.id));
+
   } catch (error) {
     console.log(error);
   }

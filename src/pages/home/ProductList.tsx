@@ -3,25 +3,34 @@ import { theme } from "../../theme/customTheme";
 import { Song } from "../../types/data.type";
 
 
-export const MusicContainer:React.FC<{songs:Song[]}> = ({songs})=>{
-    return (
-        <div style={styles}>
-        {
-          songs.map((song:Song)=>{
-            return (
-              <MusicCardComponent song={song}/>
-            )
-          })
-        }
-       
-       
-      </div>
-    )
+import React from 'react';
+import styled from 'styled-components';
+
+const MusicContainerWrapper = styled.div`
+  overflow-y: scroll;
+  width: 100%;
+  height: calc(100vh - ${({ theme }) => theme.sizes.navbarHeight} - ${({ theme }) => theme.sizes.controllerHeight});
+  display: flex;
+  flex-wrap: wrap;
+
+  @media screen and (max-width: 768px) {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr))
+  }
+`;
+
+interface MusicContainerProps {
+  songs: Song[];
 }
-const styles: Object = {
-    overflowY: "scroll",
-    width: "100%",
-    height: `calc(100vh - ${theme.sizes.navbarHeight} - ${theme.sizes.controllerHeight}`,
-    display: "flex",
-    flexWrap: "wrap",
-  };
+
+const MusicContainer: React.FC<MusicContainerProps> = ({ songs }) => {
+  return (
+    <MusicContainerWrapper>
+      {songs.map((song: Song) => (
+        <MusicCardComponent key={song._id} song={song} />
+      ))}
+    </MusicContainerWrapper>
+  );
+};
+
+export default MusicContainer;

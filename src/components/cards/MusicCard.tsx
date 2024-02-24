@@ -58,7 +58,7 @@ export const MusicCardComponent:React.FC<{song:Song}>  = ({song}) => {
       </CustomHeader>
       <div style={{width:"100%",display:"flex", justifyContent:"space-between"}}>
       <IconButton onClick={()=>dispatch({type:TOGGLE_FAVORITE_BY_ID, id:song._id})}>
-        <FavoriteIcon color={favorite ? "error" : "action"} />
+        <FavoriteIcon color={song.isFavorite ? "error" : "action"} />
       </IconButton>
       <CustomHeader animation={true} width={'50px'} size="10px" color="gray" weight="bold">
        {song.title}
