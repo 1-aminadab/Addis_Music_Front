@@ -1,7 +1,7 @@
 import axios from "axios";
 import { Song, UserData } from "../types/data.type";
 
-axios.defaults.baseURL ='https://api-addismusic.onrender.com' || 'http://localhost:3000'
+axios.defaults.baseURL ='https://api-addismusic.onrender.com' 
 
 
 export const getSongsAPI = async (username:string) => await axios.get(`/songs/${username}`)
