@@ -32,14 +32,15 @@ const LoaderDot = styled.div`
   border-radius: 50%;
   background-color: #fff;
   margin: 0 5px;
+  z-inde:100;
   animation: ${moveUpDown} 1s ease-in-out infinite;
   &:nth-child(2) {
     animation-delay: 0.2s;
-    background-color:blue;
+    background-color:white;
   }
   &:nth-child(3) {
     animation-delay: 0.4s;
-    background-color:green;
+    background-color:white;
   }
 `;
 

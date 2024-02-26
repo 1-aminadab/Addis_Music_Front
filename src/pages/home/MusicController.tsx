@@ -73,7 +73,6 @@ const VolumeBar = styled(ProgressBar)`
 export const CustomMusicController = () => {
   const { currentPlaying } = useSelector((store: RootState) => store.songs);
   const audioRef = useRef<HTMLAudioElement>(null);
-
   const [progress, setProgress] = useState(0);
   const [soundOff, setSoundOff] = useState(false);
   const [play, setPlay] = useState(false);
@@ -82,8 +81,9 @@ export const CustomMusicController = () => {
   const [toggleFavorite, setToggleFavorite] = useState(false);
 
 
-  useEffect
+ 
   const handleChange = (newValue: number) => {
+    
     setProgress(newValue);
     if (audioRef.current) {
       audioRef.current.currentTime = (newValue / 100) * audioRef.current.duration;
@@ -121,6 +121,13 @@ export const CustomMusicController = () => {
    setPlay(false)
    }
   },[progress])
+  useEffect(()=>{
+   
+  },[currentPlaying])
+  useEffect(()=>{
+
+  },[currentPlaying])
+  
   return (
     <MusicController isPlaying={currentPlaying !== null}>
       <audio src={SampleMusic} ref={audioRef} onTimeUpdate={() => setProgress(((audioRef?.current?.currentTime || 0) / (audioRef?.current?.duration || 0)) * 100)} />

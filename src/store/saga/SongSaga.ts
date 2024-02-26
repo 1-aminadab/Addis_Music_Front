@@ -39,40 +39,49 @@ interface UserAction {
 }
 function* addSongSaga(action:Action) {
   try {
-    
+    yield put(LoadingState(true))
    console.log(action.song);
     const response: AxiosResponse = yield addSongAPI(action.song)
     yield put(addSong(response.data.song));
+    yield put(LoadingState(false))
     yield getAllSongsSaga({type:GET_STATISTICS, username:userData.username})
-
   } catch (error) {
+    yield put(LoadingState(false))
     console.log(error);
   }
 }
 
 function* deleteSongSaga(action:Action) {  
   try { 
+    yield put(LoadingState(true))
     yield deleteSongAPI(action.id)
     yield put(deleteSong(action.id));
+    yield put(LoadingState(false))
    // if(userData) yield  getStatisticsAPI(userData.username)
   } catch (error) {
+    yield put(LoadingState(false))
     console.log(error);
   }
 }
 
 function* updateSongSaga(action:Action) {
   try {
+    yield put(LoadingState(true))
     yield updateSongAPI(action.song)
     yield put(updateSong(action.song));
+    yield put(LoadingState(false))
   } catch (error) {
+    yield put(LoadingState(false))
     console.log(error);
   }
 }
 
 function* getAllSongsSaga(action:UserAction) {
   try {
+    yield put(LoadingState(true))
     const response: AxiosResponse = yield getSongsAPI(action.username)
     yield put(loadAllSongs(response.data));
+    yield put(LoadingState(false))
   } catch (error) {
     console.log(error);
   }
@@ -94,8 +103,10 @@ function* toggleFavoriteSaga(action:Action) {
     const response:AxiosResponse  = yield toggleFavoriteAPI(action.id)
     console.log(response);
     yield put(toggleFavorite(action.id));
+    yield put(LoadingState(false))
 
   } catch (error) {
+    yield put(LoadingState(false))
     console.log(error);
   }
 }
