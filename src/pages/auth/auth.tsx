@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import axios, { AxiosResponse } from 'axios';
 import { toast, ToastContainer } from 'react-toastify';
@@ -122,7 +122,9 @@ export const AuthForm = () => {
       dispatch(LoadingState(false))
     }
   };
-
+ useEffect(()=>{
+  dispatch(LoadingState(false))
+ },[])
   return (
     <Container className='containerbox'>
     

@@ -1,5 +1,4 @@
 
-import { PersonSlice } from "./features/personSlice";
 import { configureStore } from "@reduxjs/toolkit";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 import createSagaMiddleware from 'redux-saga';
@@ -10,7 +9,6 @@ const sagaMiddleware = createSagaMiddleware();
 
 export const store = configureStore({
   reducer: {
-    person: PersonSlice.reducer,
     songs:songsSlice
   },
   middleware: [sagaMiddleware],
