@@ -101,7 +101,7 @@ export const AuthForm = () => {
         const response:AxiosResponse = await userLogin({username})
         console.log('Login successful:', response.data.user);
         // Show success toast notification
-        toast.success('Login successful');
+        toast.success(response.data.message);
         localStorage.setItem('userData', JSON.stringify(response.data.user));
        
         dispatch(LoadingState(false))
@@ -111,14 +111,15 @@ export const AuthForm = () => {
           localStorage.setItem('userData', JSON.stringify(response.data.user));
           console.log('Sign up successful:', response.data.user);
         // Show success toast notification
-        toast.success('Sign up successful');
+        toast.success(response.data.message);
         dispatch(LoadingState(false))
         navigate('/')
       }
-    } catch (error) {
+    } catch (error:any) {
       console.error('Error:', error);
+
       // Show error toast notification
-      toast.error('Error occurred');
+      toast.error(error.response.data.message);
       dispatch(LoadingState(false))
     }
   };
